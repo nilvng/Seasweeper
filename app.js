@@ -1,14 +1,36 @@
 const cardPuzzle = document.querySelector('.card-puzzle');
 const startButton = document.querySelector('.start-button');
 const checkButton = document.querySelector('.check-button');
-
 startButton.addEventListener('click', () => generatePuzzle(16));
 checkButton.addEventListener('click', checkit);
 
-let cardPair = []
 
+let cardPair = []
+let prefix = 'images/card-img'
+let postfix = '.jpg'
+let images = [...Array(8).keys(), ...Array(8).keys()]
 function checkit(){
-    cardPuzzle.childNodes[2].style.border = '5px solid white'
+    const shuffleDiv = document.querySelector('.shuffle');
+    shuffleDiv.innerText = shuffle(images);
+}
+
+function shuffle(array) {
+    var i = array.length,
+        j = 0,
+        temp;
+
+    while (i--) {
+
+        j = Math.floor(Math.random() * (i+1));
+
+        // swap randomly chosen element with current element
+        temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+
+    }
+
+    return array;
 }
 
 function generatePuzzle(noCards){
@@ -16,6 +38,12 @@ function generatePuzzle(noCards){
         let card = document.createElement('div');
         card.classList.add("card");
         card.addEventListener('click', () => pickCard(card))
+        card.addEventListener("transitionend", (e) => {
+            if (cardPair.length == 2){
+                validatePair();
+                cardPair = [];
+            }
+        })
 
         let front = document.createElement('div');
         front.classList.add("front-card");
@@ -24,7 +52,7 @@ function generatePuzzle(noCards){
 
         let back = document.createElement('img');
         back.classList.add("back-card");
-        back.src = "./shuhua.jpg"
+        back.src = `${prefix}${images[index]}${postfix}`
         card.appendChild(back) 
 
         cardPuzzle.appendChild(card);
@@ -32,19 +60,25 @@ function generatePuzzle(noCards){
 }
 
 function pickCard(card){
-    cardPair.push(card)
+    cardPair.push(card);
+    console.log(cardPair)
     card.classList.toggle("is-flipped");
-    card.addEventListener("transitionend", e =>{
-        validatePair()
-    })
+    if (cardPair.length == 2) {
+        console.log("paired")
+
+    }
 }
 
 function validatePair(){
-    if (cardPair.length == 2) {
-      if (cardPair[0].src == cardPair[1].src) {
-        cardPair[0].style.visibility = "hidden";
-        cardPair[1].style.visibility = "hidden";
-      }
-      cardPair = [];
+    console.log(cardPair)
+    let card1 = cardPair[0].querySelector(".back-card");
+    let card2 = cardPair[1].querySelector(".back-card");
+    console.log(card1.src);
+    if (card1.src == card2.src) {
+      cardPair[0].style.visibility = "hidden";
+      cardPair[1].style.visibility = "hidden";
+    } else {
+      cardPair[0].classList.toggle("is-flipped");
+      cardPair[1].classList.toggle("is-flipped");
     }
 }
