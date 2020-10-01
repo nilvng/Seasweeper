@@ -1,17 +1,11 @@
 const cardPuzzle = document.querySelector('.card-puzzle');
-// const startButton = document.querySelector('.start-button');
-// const checkButton = document.querySelector('.check-button');
 const modeOption = document.querySelector('.mode-settings')
 
 modeOption.addEventListener('change',createPuzzle)
-// startButton.addEventListener('click', createPuzzle);
-// checkButton.addEventListener('click', checkit);
 
 let cardPair = []
 
 function createPuzzle(){
-    // if (isStarted) return
-    // isStarted = true
     setScore(0)
     cardPuzzle.textContent = ''
     getImages(modeOption.value)
@@ -56,18 +50,13 @@ function creatCards(images, width){
 
 function pickCard(card){
     cardPair.push(card);
-    // console.log(cardPair)
     card.classList.toggle("is-flipped");
-    if (cardPair.length == 2) {
-        console.log("paired")
-    }
 }
 
 function validatePair(){
-    // console.log(cardPair)
     let card1 = cardPair[0].querySelector(".back-card");
     let card2 = cardPair[1].querySelector(".back-card");
-    // console.log(card1.src);
+
     if (card1.src == card2.src) {
       cardPair[0].style.visibility = "hidden";
       cardPair[1].style.visibility = "hidden";
