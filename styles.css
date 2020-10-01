@@ -7,27 +7,24 @@
 body{
     background: linear-gradient(to top, rgb(65, 255, 65), rgb(255, 255, 79));
     min-height: 100vh;
-    
-}
-
-h1, .start-button{
     display: flex;
-    justify-content: center;
-    align-content: center;
+    align-items: center;
+    flex-direction: column;    
+    
 }
 
 .card-puzzle{
     display: grid;
-    grid-template-rows: repeat(4, 100px);
-    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 120px);
+    grid-template-columns: repeat(4, 120px);
 
     perspective: 600px;
 
     
 }
 .card{
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     transition: transform 0.5s;
     transform-style: preserve-3d;
 }

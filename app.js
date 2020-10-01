@@ -1,28 +1,35 @@
 const cardPuzzle = document.querySelector('.card-puzzle');
-const startButton = document.querySelector('.start-button');
-const checkButton = document.querySelector('.check-button');
-startButton.addEventListener('click', () => generatePuzzle(16));
-checkButton.addEventListener('click', checkit);
+// const startButton = document.querySelector('.start-button');
+// const checkButton = document.querySelector('.check-button');
+const modeOption = document.querySelector('.mode-settings')
 
+modeOption.addEventListener('change',createPuzzle)
+// startButton.addEventListener('click', createPuzzle);
+// checkButton.addEventListener('click', checkit);
 
 let cardPair = []
-// let prefix = 'images/card-img'
-// let postfix = '.jpg'
-let images = []
-function checkit(){
-    const shuffleDiv = document.querySelector('.shuffle');
-    fetch("https://picsum.photos/v2/list?page=2&limit=8")
-    .then(response => response.json())
-    .then(data => {
-        images = [...data, ...data]
-        console.log(images)
-        console.log(data[0].url)
+
+function createPuzzle(){
+    // if (isStarted) return
+    // isStarted = true
+    setScore(0)
+    cardPuzzle.textContent = ''
+    getImages(modeOption.value)
+    .then(images => {
+        images.sort(() => Math.random() - 0.5)
+        creatCards(images, modeOption.value)
     })
+    .catch(e => alert(e))
 }
 
-function generatePuzzle(noCards){
-    images.sort(() => Math.random() - 0.5)
-    for (let index = 0; index < noCards; index++) {
+async function getImages(width){
+    let res = await fetch(`https://picsum.photos/v2/list?page=2&limit=${width**2/2}`)
+    let data = await res.json()
+    return [...data, ...data]
+}
+
+function creatCards(images, width){
+    for (let index = 0; index < width * width; index++) {
         let card = document.createElement('div');
         card.classList.add("card");
         card.addEventListener('click', () => pickCard(card))
@@ -49,24 +56,36 @@ function generatePuzzle(noCards){
 
 function pickCard(card){
     cardPair.push(card);
-    console.log(cardPair)
+    // console.log(cardPair)
     card.classList.toggle("is-flipped");
     if (cardPair.length == 2) {
         console.log("paired")
-
     }
 }
 
 function validatePair(){
-    console.log(cardPair)
+    // console.log(cardPair)
     let card1 = cardPair[0].querySelector(".back-card");
     let card2 = cardPair[1].querySelector(".back-card");
-    console.log(card1.src);
+    // console.log(card1.src);
     if (card1.src == card2.src) {
       cardPair[0].style.visibility = "hidden";
       cardPair[1].style.visibility = "hidden";
+      setScore(10)
     } else {
       cardPair[0].classList.toggle("is-flipped");
       cardPair[1].classList.toggle("is-flipped");
+          setScore(-2)
+    }
+}
+
+function setScore(value){
+    const scoreVal = document.querySelector('.score-value')
+    if (value == 0 ){
+        scoreVal.innerText = 0
+    } else if (
+        value < 0 && scoreVal.innerText > 0 ||
+        value > 0){
+    scoreVal.innerText = parseInt(scoreVal.innerText) + value
     }
 }

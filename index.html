@@ -3,15 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script  src = "app.js" defer ></script>
     <link href="./styles.css" rel = "stylesheet">
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+
     <title>Match Card Game</title>
 </head>
 <body>
     <h1>Match Card game</h1>
-    <button class="start-button">start</button> 
-    <button class="check-button">check</button>
-    <div class="shuffle"></div>
+    <div class="setting">
+        <!-- <button class="start-button btn btn-info">start</button>  -->
+        <!-- <button class="check-button">check</button> -->
+        <select class="mode-settings">
+            <option selected>Mode</option>
+            <option value="4">Easy</option>
+            <option value="6">Medium</option>
+            <option value="8">Hard</option>
+          </select>
+    </div>
+    <div class="score">
+        <label>Score: </label>
+        <div class="score-value"></div>
+    </div>
     <div class="card-puzzle"></div>
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+    <script  src = "app.js" ></script>
 </body>
 </html>
