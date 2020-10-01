@@ -6,34 +6,22 @@ checkButton.addEventListener('click', checkit);
 
 
 let cardPair = []
-let prefix = 'images/card-img'
-let postfix = '.jpg'
-let images = [...Array(8).keys(), ...Array(8).keys()]
+// let prefix = 'images/card-img'
+// let postfix = '.jpg'
+let images = []
 function checkit(){
     const shuffleDiv = document.querySelector('.shuffle');
-    shuffleDiv.innerText = shuffle(images);
-}
-
-function shuffle(array) {
-    var i = array.length,
-        j = 0,
-        temp;
-
-    while (i--) {
-
-        j = Math.floor(Math.random() * (i+1));
-
-        // swap randomly chosen element with current element
-        temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-
-    }
-
-    return array;
+    fetch("https://picsum.photos/v2/list?page=2&limit=8")
+    .then(response => response.json())
+    .then(data => {
+        images = [...data, ...data]
+        console.log(images)
+        console.log(data[0].url)
+    })
 }
 
 function generatePuzzle(noCards){
+    images.sort(() => Math.random() - 0.5)
     for (let index = 0; index < noCards; index++) {
         let card = document.createElement('div');
         card.classList.add("card");
@@ -52,7 +40,7 @@ function generatePuzzle(noCards){
 
         let back = document.createElement('img');
         back.classList.add("back-card");
-        back.src = `${prefix}${images[index]}${postfix}`
+        back.src = images[index].download_url
         card.appendChild(back) 
 
         cardPuzzle.appendChild(card);
