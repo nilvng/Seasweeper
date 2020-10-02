@@ -1,3 +1,4 @@
+
 *{
     margin: 0;
     padding: 0;
@@ -7,6 +8,7 @@
 body{
     background: linear-gradient(to top, rgb(65, 255, 65), rgb(255, 255, 79));
     min-height: 100vh;
+    font-family: 'Merriweather', serif;
     display: flex;
     align-items: center;
     flex-direction: column;    
@@ -55,5 +57,15 @@ body{
 }
 
 .mode-settings{
-    font-size: medium;
+    font-size: 1.5rem;
+    margin-right: 100px;
+}
+
+.context{
+    display: flex;
+}
+
+.score .score-value{
+    display: inline;
+    font-size: 1.4rem;
 }

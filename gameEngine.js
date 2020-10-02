@@ -7,6 +7,8 @@ modeOption.addEventListener('change',() => createPuzzle(modeOption.value))
 
 let cardPair = []
 
+createPuzzle(modeOption.value)
+
 function createPuzzle(width){
     // Set every attribute to default value to start a new round
     setScore(0)
@@ -22,14 +24,15 @@ function createPuzzle(width){
         pokeID.push(i)
     }
     pokeID = [...pokeID, ...pokeID]
-    pokeID.sort(() => Math.random() - 0.5).forEach(val => {
-        renderCard(val)
+    pokeID.sort(() => Math.random() - 0.5).forEach((val,i) => {
+        renderCard(val, i)
     })
 }
 
-function renderCard(val){
+function renderCard(val, i){
         let card = document.createElement('div');
         card.classList.add("card");
+        card.setAttribute("id", i)
         card.addEventListener('click', () => pickCard(card))
         // Special event listener used to activate a function after the transition for that card is done
         card.addEventListener("transitionend", (e) => {
@@ -53,6 +56,7 @@ function renderCard(val){
 }
 
 function pickCard(card){
+    if (cardPair.includes(card)) return ;
     cardPair.push(card);
     flipSound.play()
     card.classList.toggle("is-flipped");
