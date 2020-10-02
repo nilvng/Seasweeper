@@ -1,58 +1,53 @@
 const cardPuzzle = document.querySelector('.card-puzzle');
 const modeOption = document.querySelector('.mode-settings')
 
-modeOption.addEventListener('change',createPuzzle)
+modeOption.addEventListener('change',() => createPuzzle(modeOption.value))
 
 let cardPair = []
 
-function createMatrix(max){
-    let matrix = []
-    for (let i = 1; i <= max; i++) {
-        matrix.push(i)
-    }
-}
-
-function createPuzzle(){
+function createPuzzle(width){
+    // Set every attribute to default value to start a new round
     setScore(0)
     cardPuzzle.textContent = ''
-    getImages(modeOption.value)
-    .then(images => {
-        images.sort(() => Math.random() - 0.5)
-        creatCards(images, modeOption.value)
+    let pokeID = []
+
+    // Set the puzzle screen width match the mode value
+    cardPuzzle.style.gridTemplateRows = `repeat(${width}, ${50/width}vw)`
+    cardPuzzle.style.gridTemplateColumns = `repeat(${width}, ${80/width}vh)`
+
+    // Generate the matrix which value is the pokeID from 1 - number of poke needed for that mode
+    for (let i = 1; i <= Math.floor(width * width / 2); i++) {
+        pokeID.push(i)
+    }
+    pokeID = [...pokeID, ...pokeID]
+    pokeID.sort(() => Math.random() - 0.5).forEach(val => {
+        renderCard(val)
     })
-    .catch(e => alert(e))
 }
 
-async function getImages(width){
-    let res = await fetch(`https://picsum.photos/v2/list?page=2&limit=${width**2/2}`)
-    let data = await res.json()
-    return [...data, ...data]
-}
-
-function creatCards(images, width){
-    for (let index = 0; index < width * width; index++) {
+function renderCard(val){
         let card = document.createElement('div');
         card.classList.add("card");
         card.addEventListener('click', () => pickCard(card))
+        // Special event listener used to activate a function after the transition for that card is done
         card.addEventListener("transitionend", (e) => {
             if (cardPair.length == 2){
                 validatePair();
-                cardPair = [];
+                cardPair = []; 
             }
         })
 
-        let front = document.createElement('div');
+        let front = document.createElement('img');
         front.classList.add("front-card");
-        front.innerText = "D1"
+        front.src = "https://www.iconfinder.com/data/icons/card-games/48/Paul-28-512.png"
         card.appendChild(front)
 
         let back = document.createElement('img');
         back.classList.add("back-card");
-        back.src = images[index].download_url
+        back.srcset = `https://pokeres.bastionbot.org/images/pokemon/${val}.png`
         card.appendChild(back) 
 
         cardPuzzle.appendChild(card);
-    }
 }
 
 function pickCard(card){
@@ -64,7 +59,7 @@ function validatePair(){
     let card1 = cardPair[0].querySelector(".back-card");
     let card2 = cardPair[1].querySelector(".back-card");
 
-    if (card1.src == card2.src) {
+    if (card1.srcset == card2.srcset) {
       cardPair[0].style.visibility = "hidden";
       cardPair[1].style.visibility = "hidden";
       setScore(10)
