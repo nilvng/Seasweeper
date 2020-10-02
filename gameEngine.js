@@ -1,5 +1,7 @@
 const cardPuzzle = document.querySelector('.card-puzzle');
 const modeOption = document.querySelector('.mode-settings')
+const flipSound = new Audio("./card-flip.mp3")
+const correctSound = new Audio("./correct.mp3")
 
 modeOption.addEventListener('change',() => createPuzzle(modeOption.value))
 
@@ -12,8 +14,8 @@ function createPuzzle(width){
     let pokeID = []
 
     // Set the puzzle screen width match the mode value
-    cardPuzzle.style.gridTemplateRows = `repeat(${width}, ${50/width}vw)`
-    cardPuzzle.style.gridTemplateColumns = `repeat(${width}, ${80/width}vh)`
+    cardPuzzle.style.gridTemplateRows = `repeat(${width}, ${40/width}rem)`
+    cardPuzzle.style.gridTemplateColumns = `repeat(${width}, ${40/width}rem)`
 
     // Generate the matrix which value is the pokeID from 1 - number of poke needed for that mode
     for (let i = 1; i <= Math.floor(width * width / 2); i++) {
@@ -52,7 +54,9 @@ function renderCard(val){
 
 function pickCard(card){
     cardPair.push(card);
+    flipSound.play()
     card.classList.toggle("is-flipped");
+
 }
 
 function validatePair(){
@@ -62,6 +66,7 @@ function validatePair(){
     if (card1.srcset == card2.srcset) {
       cardPair[0].style.visibility = "hidden";
       cardPair[1].style.visibility = "hidden";
+      correctSound.play()
       setScore(10)
     } else {
       cardPair[0].classList.toggle("is-flipped");

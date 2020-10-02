@@ -41,12 +41,19 @@ body{
 }
 
 .front-card{
-    background: whitesmoke;
     z-index: 2;
     transform: rotateY(0deg);
+    background: rgb(70, 146, 222);
+    border: 2px solid whitesmoke;
+    border-radius: 10%;
 }
 /* initially back is hidden */
 .back-card{
     transform: rotateY(180deg);
+    background: rgb(244, 244, 204);
+    border-radius: 10%;
 }
 
+.mode-settings{
+    font-size: medium;
+}
