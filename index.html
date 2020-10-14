@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./styles.css" rel = "stylesheet">   
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet">
-    <script  src = "gameEngine.js" defer ></script>
-    <title>Match Card Game</title>
-</head>
-<body>
-    <h1>Match Card game</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./styles.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="app.js" defer></script>
+    <!-- <script type="module" src="puzzle.js" defer></script> -->
+    <title>Minesweeper Game</title>
+  </head>
+  <body>
+    <h1>Minesweeper game</h1>
     <div class="context">
-        <select class="mode-settings">
-            <option value ='4'selected>Easy</option>
-            <option value="6">Medium</option>
-            <option value="8">Hard</option>
-          </select>
-          <div class="score">
-                <span>Score: </span>
-                <div class="score-value"></div>
-        </div>
+      <select class="level-settings">
+        <option value="4" selected>Easy</option>
+        <option value="6">Medium</option>
+        <option value="8">Hard</option>
+      </select>
+      <div class="score">
+        <span>Score: </span>
+        <div class="score-value"></div>
+      </div>
     </div>
 
-    <div class="card-puzzle"></div>
-</body>
+    <div class="puzzle"></div>
+  </body>
 </html>

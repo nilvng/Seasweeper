@@ -1,71 +1,68 @@
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-    background: linear-gradient(to top, rgb(65, 255, 65), rgb(255, 255, 79));
-    min-height: 100vh;
-    font-family: 'Merriweather', serif;
-    display: flex;
-    align-items: center;
-    flex-direction: column;    
-    
+body {
+  background: linear-gradient(to top, rgb(25, 73, 177), rgb(48, 141, 255));
+  min-height: 100vh;
+  font-family: "Merriweather", serif;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-.card-puzzle{
-    display: grid;
-    perspective: 1000px;
-
-    
+.card-puzzle {
+  display: grid;
+  perspective: 1000px;
 }
-.card{
-    width: 100%;
-    height: 100%;
-    transition: transform 0.7s;
-    transform-style: preserve-3d;
-    cursor: pointer;
+.card {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s;
+  transform-style: preserve-3d;
+  cursor: pointer;
 }
 
-.front-card, .back-card{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    pointer-events: none;
+.front-card,
+.back-card {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  pointer-events: none;
 }
 
-.is-flipped{
-    transform: rotateY(180deg);
+.is-flipped {
+  transform: rotateY(180deg);
 }
 
-.front-card{
-    z-index: 2;
-    transform: rotateY(0deg);
-    background: rgb(70, 146, 222);
-    border: 2px solid whitesmoke;
-    border-radius: 10%;
+.front-card {
+  z-index: 2;
+  transform: rotateY(0deg);
+  background: rgb(70, 146, 222);
+  border: 2px solid whitesmoke;
+  border-radius: 10%;
 }
 /* initially back is hidden */
-.back-card{
-    transform: rotateY(180deg);
-    background: rgb(244, 244, 204);
-    border-radius: 10%;
+.back-card {
+  transform: rotateY(180deg);
+  background: rgb(244, 244, 204);
+  border-radius: 10%;
 }
 
-.mode-settings{
-    font-size: 1.5rem;
-    margin-right: 100px;
+.mode-settings {
+  font-size: 1.5rem;
+  margin-right: 100px;
 }
 
-.context{
-    display: flex;
+.context {
+  display: flex;
 }
 
-.score .score-value{
-    display: inline;
-    font-size: 1.4rem;
+.score .score-value {
+  display: inline;
+  font-size: 1.4rem;
 }
